@@ -1,0 +1,4 @@
+node_modules/
+.DS_Store
+# Your memo library, images and connection keys. Never commit or share this folder.
+desktop/data/

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <title>メモパレ — PC版</title>
+  <link rel="icon" href="/app-icon.png">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/avatar.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body data-theme="light">
+  <a class="skip-link" href="#notes-list">メモ一覧へ</a>
+  <div class="workspace" id="workspace">
+    <aside class="sidebar" aria-label="保存先と設定">
+      <a class="brand" href="/" id="brand-home" aria-label="すべてのメモ">
+        <img class="brand-mark" src="/app-icon.png" alt="" width="40" height="40">
+        <span class="brand-copy"><strong>メモパレ</strong></span>
+      </a>
+      <button class="button primary new-memo" id="new-note" type="button" aria-label="新しいメモ" title="新しいメモ"><span aria-hidden="true">＋</span><span class="sidebar-label">新しいメモ</span></button>
+      <div class="rail-scroll">
+        <div class="sidebar-caption">キャラクター</div>
+        <nav class="character-list" id="character-list" aria-label="キャラクターで絞り込む"></nav>
+        <section class="label-section" aria-labelledby="label-caption">
+          <div class="label-section-header"><h2 class="sidebar-caption" id="label-caption">ラベル</h2><button class="label-manage" id="open-labels" type="button" aria-label="ラベルを整理" title="ラベルを整理"><span class="label-manage-symbol" aria-hidden="true">#</span><span class="sidebar-label">整理</span></button></div>
+          <nav class="label-list" id="label-list" aria-label="ラベルで絞り込む"></nav>
+        </section>
+      </div>
+      <div class="sidebar-actions">
+        <button class="button subtle" id="open-pairing" type="button" aria-label="iPhone とつなぐ" title="iPhone とつなぐ"><span class="action-symbol" aria-hidden="true">↔</span><span class="sidebar-label">iPhone とつなぐ</span></button>
+        <button class="button subtle" id="open-settings" type="button" aria-label="見た目と設定" title="見た目と設定"><span class="action-symbol" aria-hidden="true">⚙</span><span class="sidebar-label">見た目と設定</span></button>
+        <button class="button subtle" id="open-tools" type="button" aria-label="バックアップ・AI" title="バックアップ・AI"><span class="action-symbol" aria-hidden="true">↗</span><span class="sidebar-label">バックアップ・AI</span></button>
+      </div>
+      <div class="sidebar-footer"><span class="status-dot" id="connection-dot"></span><span class="app-status" id="app-status" role="status">開いています…</span></div>
+    </aside>
+    <section class="pane list-pane" aria-labelledby="collection-title">
+      <header class="list-header">
+        <div class="list-title-row"><span id="collection-avatar" class="collection-avatar" hidden></span><div class="list-title-copy"><h1 class="section-title" id="collection-title">すべてのメモ</h1><span class="count-label" id="note-count">0件</span></div></div>
+        <label class="search-wrap"><span class="sr-only">メモを検索</span><input id="search" class="search-input" type="search" placeholder="メモを検索" autocomplete="off" aria-label="メモを検索"></label>
+        <div class="filter-row">
+          <div class="origin-filters" id="origin-filters" role="group" aria-label="作成した端末で絞り込む">
+            <button class="filter-chip active" data-origin="all" type="button" aria-pressed="true">すべて</button>
+            <button class="filter-chip" data-origin="iphone" type="button" aria-pressed="false">iPhone</button>
+            <button class="filter-chip" data-origin="pc" type="button" aria-pressed="false">PC</button>
+          </div>
+          <button class="favorite-filter" id="favorite-filter" type="button" aria-pressed="false" aria-label="お気に入り" title="お気に入りだけを表示"><span class="favorite-filter-star" aria-hidden="true">☆</span><span class="favorite-filter-label">お気に入り</span></button>
+        </div>
+        <div class="active-filter" id="active-filter" hidden></div>
+      </header>
+      <div class="notes-list" id="notes-list" tabindex="-1" aria-label="メモ一覧"></div>
+      <footer class="list-footer"><button id="open-shortcuts" class="shortcut-button" type="button" aria-label="キーボード操作と音声入力">⌘ / Ctrl</button></footer>
+    </section>
+    <main class="pane reader-pane" id="reader-pane" aria-label="メモを読む・書く">
+      <div class="message-banner" id="message-banner" role="status" hidden></div>
+      <div id="detail" class="detail"></div>
+    </main>
+  </div>
+  <dialog class="modal" id="dialog" aria-labelledby="dialog-title"><header class="modal-header"><h2 id="dialog-title"></h2><button class="button icon-button" id="dialog-close" type="button" aria-label="閉じる">×</button></header><div class="modal-body" id="dialog-body"></div><div class="modal-message" id="dialog-message" role="status"></div><footer class="modal-actions" id="dialog-actions"></footer></dialog>
+  <dialog class="image-modal" id="image-dialog" aria-label="画像を拡大"><button class="button image-close" id="image-close" type="button" aria-label="画像を閉じる">×</button><img id="full-image" alt="メモに添付した画像"></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <div class="ai-notice" id="ai-notice" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Keep sources of the PC version byte-identical on every OS (a Windows checkout would otherwise turn them into CRLF).
+desktop/** text=auto eol=lf
+pc-app/** text=auto eol=lf
+pc-public/** text=auto eol=lf
+/avatar.js text eol=lf
+# Windows batch files must keep CRLF line endings: cmd.exe misreads LF-only files
+# (labels and the Node version check were skipped when this was LF).
+*.cmd -text
