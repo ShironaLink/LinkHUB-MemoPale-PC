@@ -20,6 +20,8 @@ iPhone アプリ「[メモパレ](https://apps.apple.com/jp/app/id6814723377)」
 
 `.zip`、`.yml`、`.blockmap` のファイルは自動アップデート用です。手で取得する必要はありません。
 
+> **Mac 版は準備中です。** 用意でき次第、Releases に追加します。いまダウンロードできるのは Windows 版です。
+
 ## 入れ方
 
 ### Windows
