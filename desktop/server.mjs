@@ -15,7 +15,17 @@ const here=path.dirname(fileURLToPath(import.meta.url));
 const token=()=>randomBytes(32).toString('base64url');
 const equals=(a,b)=>typeof a==='string'&&typeof b==='string'&&Buffer.byteLength(a)===Buffer.byteLength(b)&&timingSafeEqual(Buffer.from(a),Buffer.from(b));
 const privateIP=ip=>/^10\./.test(ip)||/^192\.168\./.test(ip)||/^172\.(1[6-9]|2\d|3[01])\./.test(ip);
-function addresses(){return Object.values(os.networkInterfaces()).flat().filter(n=>n&&n.family==='IPv4'&&!n.internal&&privateIP(n.address)).map(n=>n.address);}
+export function addresses(interfaces = os.networkInterfaces()) {
+  const ipv4 = Object.values(interfaces).flat()
+    .filter(entry => entry && entry.family === 'IPv4' && !entry.internal)
+    .map(entry => entry.address);
+  // Preserve the existing first choice when a VPN also has an RFC 6598 address.
+  const shared = ipv4.filter(ip => {
+    const [first, second] = ip.split('.').map(Number);
+    return first === 100 && second >= 64 && second <= 127;
+  });
+  return [...ipv4.filter(privateIP), ...shared];
+}
 async function body(req,limit=32*1024*1024){
   if(Number(req.headers['content-length'])>limit)throw new MemoError('一度の転送量が上限を超えています。',413);
   let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>limit)throw new MemoError('転送量が上限を超えています。',413);chunks.push(chunk);}return Buffer.concat(chunks);
